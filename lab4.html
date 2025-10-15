@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4 - Intro to JS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Lab 4</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Homepage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="lab4.html">This Lab</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Header -->
+    <header class="py-5 bg-primary text-white text-center">
+        <div class="container">
+            <h1 class="display-4">Andy's Ordering Store</h1>
+            <p class="lead">Place your order here!</p>
+        </div>
+    </header>
+
+    <!-- main -->
+    <div class="container my-5">
+        <div id="greeting" class="mb-4"></div>
+        <div id="orderDetails" class="mb-4"></div>
+        <button id="placeOrder" class="btn btn-primary">Place Order</button>
+    </div>
+
+    <script>
+        // Welcome alert on page load
+        window.onload = function() {
+            alert("Welcome to Andy's Ordering Store!");
+        };
+
+        // Handle order placement
+        document.getElementById("placeOrder").onclick = function() {
+            // Get user input
+            let name = prompt("Please enter your name:");
+            let item = prompt("Please enter the item you want to order:");
+            let quantity = prompt("Please enter the number of items (1-99):");
+
+            // Validating quantity
+            quantity = parseInt(quantity);
+            if (isNaN(quantity) || quantity < 1 || quantity > 99) {
+                alert("Please enter a valid quantity between 1 and 99.");
+                return;
+            }
+
+            // trying to get current date and calculate arrival date (7 days later)
+            let today = new Date();
+            let arrivalDate = new Date(today);
+            arrivalDate.setDate(today.getDate() + 7);
+
+            // guess the time-based greeting
+            let hour = today.getHours();
+            let greetingTime = "";
+            if (hour < 12) greetingTime = "Good Morning";
+            else if (hour < 17) greetingTime = "Good Afternoon";
+            else greetingTime = "Good Evening";
+
+            // Display greeting
+            document.getElementById("greeting").innerHTML = `${greetingTime} ${name}, Thank you for ordering!`;
+
+            // Display order details
+            document.getElementById("orderDetails").innerHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Item:</strong> ${item}</p>
+                <p><strong>Quantity:</strong> ${quantity}</p>
+                <p><strong>Expected Arrival:</strong> ${arrivalDate.toDateString()}</p>
+            `;
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
